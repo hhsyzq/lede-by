@@ -71,6 +71,11 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@main
+
+    - name: Build
+      run: |
+        echo "Free space:"
+        df -h
       
     - name: Clone source code
       working-directory: /workdir
