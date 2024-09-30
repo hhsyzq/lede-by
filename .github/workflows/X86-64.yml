@@ -88,10 +88,10 @@ jobs:
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv /by/$FEEDS_CONF openwrt/feeds.conf.default
-        chmod +x by/$DIY_P1_SH
+        [ -e $FEEDS_CONF ] && mv /workdir/by/$FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x /workdir/by/$DIY_P1_SH
         cd openwrt
-        by/$DIY_P1_SH
+        /workdir/by/$DIY_P1_SH
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -101,11 +101,11 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv /by/files openwrt/files
-        [ -e $CONFIG_FILE ] && mv /by/$CONFIG_FILE openwrt/.config
-        chmod +x by/$DIY_P2_SH
+        [ -e files ] && mv /workdir/by/files openwrt/files
+        [ -e $CONFIG_FILE ] && mv /workdir/by/$CONFIG_FILE openwrt/.config
+        chmod +x /workdir/by/$DIY_P2_SH
         cd openwrt
-        by/$DIY_P2_SH
+        /workdir/by/$DIY_P2_SH
 
     - name: Download package
       id: package
