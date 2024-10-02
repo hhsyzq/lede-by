@@ -48,13 +48,6 @@ jobs:
         echo "--------------------------硬盘信息--------------------------"
         echo "硬盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
         
-    - name: Combine Disks
-      uses: easimon/maximize-build-space@master
-      with:
-        swap-size-mb: 1024
-        temp-reserve-mb: 100
-        root-reserve-mb: 1024
-        
     - name: 释放磁盘空间
       uses: jlumbroso/free-disk-space@main
       with:
@@ -68,6 +61,13 @@ jobs:
         haskell: true
         large-packages: true
         swap-storage: true
+        
+    - name: Combine Disks
+      uses: easimon/maximize-build-space@master
+      with:
+        swap-size-mb: 1024
+        temp-reserve-mb: 100
+        root-reserve-mb: 1024
         
     - name: Checkout
       uses: actions/checkout@main
