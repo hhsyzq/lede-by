@@ -113,6 +113,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files mi3g/files
+        [ -e feeds ] && mv feeds mi3g/feeds
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE mi3g/.config
         chmod +x $DIY_P2_SH
         cd mi3g
