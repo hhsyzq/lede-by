@@ -91,11 +91,11 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH mi3g
         ln -sf /workdir/mi3g $GITHUB_WORKSPACE/mi3g
 
-    - name: Cache
-      uses: klever1988/cachewrtbuild@main
-      with:
-        ccache: 'true'
-        prefix: ${{ github.workspace }}/mi3g
+    #- name: Cache
+      #uses: klever1988/cachewrtbuild@main
+      #with:
+        #ccache: 'true'
+        #prefix: ${{ github.workspace }}/mi3g
     
     - name: Load custom feeds
       run: |
