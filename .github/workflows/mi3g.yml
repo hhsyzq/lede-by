@@ -88,41 +88,41 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH mi3g
-        ln -sf /workdir/mi3g $GITHUB_WORKSPACE/mi3g
+        git clone $REPO_URL -b $REPO_BRANCH mi3ga
+        ln -sf /workdir/mi3ga $GITHUB_WORKSPACE/mi3ga
 
     #- name: Cache
       #uses: klever1988/cachewrtbuild@main
       #with:
         #ccache: 'true'
-        #prefix: ${{ github.workspace }}/mi3g
+        #prefix: ${{ github.workspace }}/mi3ga
     
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF mi3g/feeds.conf.default
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF mi3ga/feeds.conf.default
         chmod +x $DIY_P1_SH
-        cd mi3g
+        cd mi3ga
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-      run: cd mi3g && ./scripts/feeds update -a
+      run: cd mi3ga && ./scripts/feeds update -a
 
     - name: Install feeds
-      run: cd mi3g && ./scripts/feeds install -a
+      run: cd mi3ga && ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv files mi3g/files
-        [ -e feeds ] && mv -f mi3g/feeds/* mi3g/feeds
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE mi3g/.config
+        [ -e files ] && mv files mi3ga/files
+        [ -e feeds ] && mv -f mi3g/feeds/* mi3ga/feeds
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE mi3ga/.config
         chmod +x $DIY_P2_SH
-        cd mi3g
+        cd mi3ga
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: Download package
       id: package
       run: |
-        cd mi3g
+        cd mi3ga
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
@@ -135,7 +135,7 @@ jobs:
     - name: Compile the firmware
       id: compile
       run: |
-        cd mi3g
+        cd mi3ga
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "status=success" >> $GITHUB_OUTPUT
@@ -152,13 +152,13 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: mi3g_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: mi3g/bin
+        path: mi3ga/bin
 
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd mi3g/bin/targets/*/*
+        cd mi3ga/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
