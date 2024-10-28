@@ -99,8 +99,8 @@ jobs:
     
     - name: Load custom feeds
       run: |
+        [ -e mi3g ] && cp -rfv mi3g/feeds mi3ga/feeds
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF mi3ga/feeds.conf.default
-        [ -e mi3g ] && cp -rfv mi3g/feeds/* mi3ga/feeds
         chmod +x $DIY_P1_SH
         cd mi3ga
         $GITHUB_WORKSPACE/$DIY_P1_SH
