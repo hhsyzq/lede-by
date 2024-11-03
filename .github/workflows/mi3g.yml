@@ -111,7 +111,6 @@ jobs:
     - name: Load custom feeds
       run: |
         [ -e mi3g ] && cp -rfv mi3g/feeds/routing mi3ga/feeds/routing
-        [ -e mi3g ] && cp -rfv mi3g/feeds/helloworld mi3ga/feeds/helloworld
 
     - name: Install feeds
       run: cd mi3ga && ./scripts/feeds install -a
