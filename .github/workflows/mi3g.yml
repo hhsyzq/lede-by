@@ -21,7 +21,7 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: mi3g.config
-  DIY_P1_SH: diy-part1.sh
+  DIY_P1_SH: mi3g-diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
@@ -99,7 +99,7 @@ jobs:
     
     - name: Load custom feeds
       run: |
-        [ -e mi3g ] && cp -rfv mi3g/feeds mi3ga/feeds
+        #[ -e mi3g ] && cp -rfv mi3g/feeds mi3ga/feeds
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF mi3ga/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd mi3ga
