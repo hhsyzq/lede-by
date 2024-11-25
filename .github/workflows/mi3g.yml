@@ -113,7 +113,8 @@ jobs:
 
     - name: 增补/feeds/routing文件夹
       run: |
-        [ -e mi3g ] && cp -rfv mi3g/feeds/routing mi3ga/feeds/routing
+        [ -e mi3g ] && cp -rfv mi3g/feeds mi3ga/feeds
+        cd mi3ga && ./scripts/feeds update -a
 
     - name: Install feeds
       run: cd mi3ga && ./scripts/feeds install -a
